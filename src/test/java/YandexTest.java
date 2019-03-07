@@ -68,8 +68,8 @@ public class YandexTest {
         List<String> webAddresses = $$(By.xpath(webAddressesXpath)).first(3).texts();
         //Запись в файл
         try {
-            String filePath = new File("").getAbsolutePath();
-            FileWriter writer = new FileWriter(filePath + "/build/reports/tests/Новости.txt", false);
+//            String filePath = new File("").getAbsolutePath();
+            FileWriter writer = new FileWriter("Новости.txt", false);
             for (int x = 0; x < 3; x = x + 1) {
                 String headlineText = headlines.get(x);
                 writer.write(headlineText);
@@ -85,7 +85,7 @@ public class YandexTest {
             System.out.println(ex.getMessage());
         }
         //Сделать скриншот страницы, скриншот поместить в ту же папку, что и текстовый документ.
-        screenshot("News");
+        screenshot("News");//TODO: скриншот поместить в ту же папку, что и текстовый документ
         //Закрыть браузер.
         driver.quit();
     }

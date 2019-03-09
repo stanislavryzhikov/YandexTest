@@ -1,6 +1,7 @@
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Screenshots;
 import com.codeborne.selenide.WebDriverRunner;
+import com.google.common.io.Files;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.http.util.Asserts;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -14,6 +15,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
@@ -27,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class YandexTest {
 
     @Test
-    public void YandexTest() throws IOException {
+    public void YandexTest() throws IOException, HeadlessException, AWTException {
         //Считываем значения
         FileInputStream inputStream = new FileInputStream(new File("TestData.xls"));
         HSSFWorkbook workbook = new HSSFWorkbook(inputStream);
@@ -84,8 +88,12 @@ public class YandexTest {
 
             System.out.println(ex.getMessage());
         }
+
         //Сделать скриншот страницы, скриншот поместить в ту же папку, что и текстовый документ.
-        screenshot("News");//TODO: скриншот поместить в ту же папку, что и текстовый документ
+//      screenshot("News");
+        BufferedImage image = new Robot().createScreenCapture(new Rectangle(Toolkit.getDefaultToolkit().getScreenSize()));
+        ImageIO.write(image, "png", new File("News.png"));
+
         //Закрыть браузер.
         driver.quit();
     }
